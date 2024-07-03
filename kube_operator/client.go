@@ -516,7 +516,7 @@ func (c KubeClient) CreateMMSPVC(envVars map[string]string, mmsPVCConfig map[str
 	}
 
 	pvcSizeInString := DEFAULT_PVC_SIZE_IN_STRING
-	if size, ok := mmsPVCConfig["pvcSize"]; ok {
+	if size, ok := mmsPVCConfig["pvcSizeGB"]; ok {
 		sizeInServiceDef := int64(size.(float64))
 		if sizeInServiceDef > 0 {
 			pvcSizeInString = strconv.FormatInt(sizeInServiceDef, 10)
