@@ -85,11 +85,10 @@ func (p *KubeDeploymentConfigPlugin) Sign(dep map[string]interface{}, privKey *r
 			delete(dep, "mmsPVC")
 		}
 
-		if pvcSizeVal, ok := mmsPVCConfig["pvcSize"]; ok {
-			pvcSize := int64(pvcSizeVal.(float64))
-			msgPrinter.Printf("pvcSize: %v\n", pvcSize)
+		if pvcSizeGBVal, ok := mmsPVCConfig["pvcSizeGB"]; ok {
+			pvcSizeGB := int64(pvcSizeGBVal.(float64))
+			msgPrinter.Printf("pvcSizeGB: %v\n", pvcSizeGB)
 		}
-	}
 
 	// Stringify and sign the deployment string.
 	deployment, err := json.Marshal(dep)
@@ -126,8 +125,8 @@ func (p *KubeDeploymentConfigPlugin) DefaultClusterConfig() interface{} {
 	return map[string]interface{}{
 		"operatorYamlArchive": "",
 		"mmsPVC": map[string]interface{}{
-			"enable":  false,
-			"pvcSize": 0,
+			"enable":    false,
+			"pvcSizeGB": 0,
 		},
 	}
 }
